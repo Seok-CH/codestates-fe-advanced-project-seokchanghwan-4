@@ -1,17 +1,28 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import reactDom from "react-dom";
 import styled from "styled-components";
 import { AiOutlineUser, AiOutlineLock, AiOutlineClose } from "react-icons/ai";
 
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { login, toggleModal, selectLogin } from "../redux/slice/loginSlice";
 
+interface PropsType {
+  children: React.ReactNode;
+}
+
+function ModalPortal({ children }: PropsType) {
+  const el = document.getElementById("modal")!;
+  return reactDom.createPortal(children, el);
+}
+
 function LoginModal() {
   const dispatch = useAppDispatch();
-  const { isLoginError } = useAppSelector(selectLogin);
+  const { isLoginError, isModalOpen } = useAppSelector(selectLogin);
   const [inputValue, setInputValue] = useState({
     id: "",
     password: "",
   });
+  console.log(isModalOpen);
 
   function changeInputValue(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValue({
@@ -30,40 +41,46 @@ function LoginModal() {
   }
 
   return (
-    <LoginModalWrapper onClick={(e) => closeModal(e)}>
-      <LoginModalContainer>
-        <CloseIcon>
-          <AiOutlineClose onClick={(e) => closeModal(e)} />
-        </CloseIcon>
-        <h1 className="header__logo">📰 NEWSAPP</h1>
-        <LoginModalContent>
-          <LoginInputContainer>
-            <AiOutlineUser />
-            <input
-              name="id"
-              type="text"
-              onChange={(e) => changeInputValue(e)}
-              value={inputValue.id}
-              placeholder="아이디"
-            />
-          </LoginInputContainer>
-          <LoginInputContainer>
-            <AiOutlineLock />
-            <input
-              name="password"
-              type="password"
-              onChange={(e) => changeInputValue(e)}
-              value={inputValue.password}
-              placeholder="비밀번호"
-            />
-          </LoginInputContainer>
-          {isLoginError && (
-            <div className="login-alert">아이디 또는 비밀번호가 틀립니다</div>
-          )}
-          <button onClick={() => handleLoginBtnClick()}>로그인</button>
-        </LoginModalContent>
-      </LoginModalContainer>
-    </LoginModalWrapper>
+    <ModalPortal>
+      {isModalOpen && (
+        <LoginModalWrapper onClick={(e) => closeModal(e)}>
+          <LoginModalContainer>
+            <CloseIcon>
+              <AiOutlineClose onClick={(e) => closeModal(e)} />
+            </CloseIcon>
+            <h1 className="header__logo">📰 NEWSAPP</h1>
+            <LoginModalContent>
+              <LoginInputContainer>
+                <AiOutlineUser />
+                <input
+                  name="id"
+                  type="text"
+                  onChange={(e) => changeInputValue(e)}
+                  value={inputValue.id}
+                  placeholder="아이디"
+                />
+              </LoginInputContainer>
+              <LoginInputContainer>
+                <AiOutlineLock />
+                <input
+                  name="password"
+                  type="password"
+                  onChange={(e) => changeInputValue(e)}
+                  value={inputValue.password}
+                  placeholder="비밀번호"
+                />
+              </LoginInputContainer>
+              {isLoginError && (
+                <div className="login-alert">
+                  아이디 또는 비밀번호가 틀립니다
+                </div>
+              )}
+              <button onClick={() => handleLoginBtnClick()}>로그인</button>
+            </LoginModalContent>
+          </LoginModalContainer>
+        </LoginModalWrapper>
+      )}
+    </ModalPortal>
   );
 }
 

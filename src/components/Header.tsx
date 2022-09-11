@@ -1,13 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import LoginModal from "./LoginModal";
-
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { toggleModal, selectLogin } from "../redux/slice/loginSlice";
 
 function Header() {
-  const { isModalOpen, isLogin } = useAppSelector(selectLogin);
+  const { isLogin } = useAppSelector(selectLogin);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -39,7 +37,6 @@ function Header() {
           </button>
         )}
       </NavContainer>
-      {isModalOpen && <LoginModal />}
     </HeaderContainer>
   );
 }

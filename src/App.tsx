@@ -2,12 +2,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 
 import Header from "./components/Header";
+import LoginModal from "./components/LoginModal";
 import Main from "./pages/Main";
 import Search from "./pages/Search";
 
 function App() {
   return (
     <BrowserRouter>
+      <LoginModal />
       <Header />
       <Wrapper>
         <Routes>
