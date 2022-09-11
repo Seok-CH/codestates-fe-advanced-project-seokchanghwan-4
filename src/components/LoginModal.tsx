@@ -22,7 +22,6 @@ function LoginModal() {
     id: "",
     password: "",
   });
-  console.log(isModalOpen);
 
   function changeInputValue(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValue({

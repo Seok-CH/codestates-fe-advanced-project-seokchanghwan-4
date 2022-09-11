@@ -1,13 +1,14 @@
+import { ReactNode } from "react";
 import styled from "styled-components";
-import { BsBookmark } from "react-icons/bs";
 
-import { SearchListInterface } from "../redux/slice/searchSlice";
+import { SearchResultList } from "../types/search";
 
 interface PropsType {
-  data: SearchListInterface;
+  data: SearchResultList;
+  children: ReactNode;
 }
 
-function Article({ data }: PropsType) {
+function Article({ data, children }: PropsType) {
   return (
     <ArticleContainer className="article">
       <div className="article__thumbnailContainer">
@@ -30,9 +31,7 @@ function Article({ data }: PropsType) {
           </div>
         </div>
       </a>
-      <div className="bookmark">
-        <BsBookmark />
-      </div>
+      <div className="interaction-container">{children}</div>
     </ArticleContainer>
   );
 }
@@ -42,10 +41,14 @@ const ArticleContainer = styled.article`
   padding: 1rem;
   border-bottom: 1px solid var(--gray-3);
 
-  .bookmark {
+  .interaction-container {
     width: 1rem;
     font-size: 1rem;
     color: var(--gray-8);
+
+    > svg {
+      cursor: pointer;
+    }
   }
 
   .article__thumbnailContianer {

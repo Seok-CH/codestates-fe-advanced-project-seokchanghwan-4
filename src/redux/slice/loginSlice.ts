@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { loginApi } from "../../api/login";
 
-export interface LoginState {
+interface LoginState {
   isLogin: boolean;
   isLoginError: boolean;
   isModalOpen: boolean;

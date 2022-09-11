@@ -1,12 +1,14 @@
 import { useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import styled from "styled-components";
+import { BsBookmarkPlus } from "react-icons/bs";
 
 import Article from "../components/Article";
 import SearchBar from "../components/SearchBar";
 import Loading from "../components/Loading";
 
+import { selectLogin, toggleModal } from "../redux/slice/loginSlice";
 import {
   searchArticles,
   selectSearch,
@@ -14,17 +16,27 @@ import {
   changeSearchword,
   changeSortBy,
 } from "../redux/slice/searchSlice";
+import { postBookmark } from "../redux/slice/bookmarkSlice";
+
+import { SearchResultList } from "../types/search";
 
 function Searchlist() {
+  const { isLogin } = useAppSelector(selectLogin);
   const { list, status, query } = useAppSelector(selectSearch);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const fetchSection = useRef() as React.MutableRefObject<HTMLDivElement>;
-  const q = useLocation().search.slice(1).split("=")[1];
+  const q = useLocation().search?.slice(1).split("=")[1];
+  if (!q) navigate("/");
   const filterOption = [
     { id: "relevancy", name: "관련도순" },
     { id: "popularity", name: "인기순" },
     { id: "publishedAt", name: "최신순" },
   ];
+
+  const addBookmark = (data: SearchResultList) => {
+    isLogin ? dispatch(postBookmark(data)) : dispatch(toggleModal(true));
+  };
 
   useEffect(() => {
     const options = {
@@ -70,7 +82,9 @@ function Searchlist() {
       <SearchList>
         {status === "loading" && <Loading />}
         {list.map((el, idx) => (
-          <Article key={idx} data={el} />
+          <Article key={idx} data={el}>
+            <BsBookmarkPlus onClick={() => addBookmark(el)} />
+          </Article>
         ))}
       </SearchList>
       <div style={{ height: "100px" }} ref={fetchSection}></div>

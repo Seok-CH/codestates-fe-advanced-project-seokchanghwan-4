@@ -1,23 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { searchArticlesApi, QueryList } from "../../api/search";
-
-export interface SearchListInterface {
-  source: {
-    id: string;
-    name: string;
-  };
-  author: string;
-  title: string;
-  description: string;
-  url: string;
-  urlToImage: string;
-  publishedAt: string;
-  content: string;
-}
+import { searchArticlesApi } from "../../api/search";
+import { QueryList, SearchResultList } from "../../types/search";
 
 export interface SearchState {
-  list: SearchListInterface[];
+  list: SearchResultList[];
   query: QueryList;
   status: "idle" | "loading" | "failed";
 }

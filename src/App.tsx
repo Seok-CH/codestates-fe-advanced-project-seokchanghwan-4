@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import LoginModal from "./components/LoginModal";
 import Main from "./pages/Main";
 import Search from "./pages/Search";
+import Bookmark from "./pages/Bookmark";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/bookmark" element={<Bookmark />} />
         </Routes>
       </Wrapper>
     </BrowserRouter>
