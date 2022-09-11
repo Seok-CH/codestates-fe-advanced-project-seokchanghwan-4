@@ -1,13 +1,25 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { useAppDispatch } from "../redux/hooks";
+import LoginModal from "./LoginModal";
+
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { toggleModal, selectLogin } from "../redux/slice/loginSlice";
 
 function Header() {
+  const { isModalOpen, isLogin } = useAppSelector(selectLogin);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const openModal = () => {
+    dispatch(toggleModal(true));
+  };
+
   const goBackHome = () => {
+    navigate("/");
+  };
+
+  const goMyPage = () => {
     navigate("/");
   };
 
@@ -17,8 +29,17 @@ function Header() {
         📰 NEWSAPP
       </h1>
       <NavContainer className="nav">
-        <button className="nav__loginbtn">로그인</button>
+        {isLogin ? (
+          <button className="nav__btn" onClick={goMyPage}>
+            마이페이지
+          </button>
+        ) : (
+          <button className="nav__btn" onClick={openModal}>
+            로그인
+          </button>
+        )}
       </NavContainer>
+      {isModalOpen && <LoginModal />}
     </HeaderContainer>
   );
 }
@@ -41,7 +62,7 @@ const NavContainer = styled.nav`
   justify-content: space-between;
   gap: 1rem;
 
-  .nav__loginbtn {
+  .nav__btn {
     padding: 0.5rem;
     border-radius: 0.5rem;
     color: var(--primary-blue-7);
