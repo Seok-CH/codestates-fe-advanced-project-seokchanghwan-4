@@ -66,7 +66,7 @@ function Searchlist() {
           </Article>
         ))}
       </SearchList>
-      <InfiniteScroll type="search" />
+      {list.length !== 0 && <InfiniteScroll type="search" />}
     </SearchContainer>
   );
 }

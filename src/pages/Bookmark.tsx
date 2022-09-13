@@ -26,7 +26,7 @@ function Bookmark() {
       <h2 className="bookmark-headline">즐겨찾기 목록</h2>
       <BookmarkList>
         {list.map((el, idx) => (
-          <BookmarkDetail bookmarkIdx={idx} data={el} />
+          <BookmarkDetail key={idx} bookmarkIdx={idx} data={el} />
         ))}
       </BookmarkList>
     </BookmarkContainer>

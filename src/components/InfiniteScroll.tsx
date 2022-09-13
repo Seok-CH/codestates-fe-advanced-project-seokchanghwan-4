@@ -13,7 +13,7 @@ function InfiniteScroll({ type }: PropsType) {
 
   useEffect(() => {
     const options = {
-      rootMargin: "500px",
+      rootMargin: "200px",
       threshold: 0.25,
     };
 

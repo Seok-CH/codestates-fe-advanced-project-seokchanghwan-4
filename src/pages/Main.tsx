@@ -69,7 +69,7 @@ function Main() {
           </ArticleCard>
         ))}
       </ToptrendListContainer>
-      <InfiniteScroll type="toptrend" />
+      {list.length !== 0 && <InfiniteScroll type="toptrend" />}
     </MainContainer>
   );
 }
