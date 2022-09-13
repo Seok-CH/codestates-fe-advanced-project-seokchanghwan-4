@@ -34,8 +34,10 @@ export const bookmarkSlice = createSlice({
       state.list = getBookmarkApi();
     },
     delBookmark(state, action) {
-      delBookmarkApi(action.payload);
-      state.list = getBookmarkApi();
+      if (window.confirm("정말 삭제 하시겠습니까?")) {
+        delBookmarkApi(action.payload);
+        state.list = getBookmarkApi();
+      }
     },
   },
 });

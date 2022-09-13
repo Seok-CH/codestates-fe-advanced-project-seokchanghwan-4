@@ -5,7 +5,7 @@ import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import Article from "./Article";
 
 import { useAppDispatch } from "../redux/hooks";
-import { editBookmark } from "../redux/slice/bookmarkSlice";
+import { editBookmark, delBookmark } from "../redux/slice/bookmarkSlice";
 
 import { SearchResultList } from "../types/search";
 
@@ -61,7 +61,12 @@ function BookmarkDetail({ data, bookmarkIdx }: PropsType) {
             >
               {editmode ? "수정완료" : "내용 수정하기"}
             </button>
-            <button className="btn-change btn-remove">즐겨찾기 삭제</button>
+            <button
+              className="btn-change btn-remove"
+              onClick={() => dispatch(delBookmark(bookmarkIdx))}
+            >
+              즐겨찾기 삭제
+            </button>
           </div>
         </Container>
       )}

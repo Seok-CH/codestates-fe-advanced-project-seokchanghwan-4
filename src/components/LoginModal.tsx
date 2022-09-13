@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { AiOutlineUser, AiOutlineLock, AiOutlineClose } from "react-icons/ai";
 
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { login, toggleModal, selectLogin } from "../redux/slice/loginSlice";
+import { login, toggleModal, selectAuth } from "../redux/slice/authSlice";
+
+import { Logo } from "../styles/Components";
 
 interface PropsType {
   children: React.ReactNode;
@@ -17,7 +19,7 @@ function ModalPortal({ children }: PropsType) {
 
 function LoginModal() {
   const dispatch = useAppDispatch();
-  const { isLoginError, isModalOpen } = useAppSelector(selectLogin);
+  const { isLoginError, isModalOpen } = useAppSelector(selectAuth);
   const [inputValue, setInputValue] = useState({
     id: "",
     password: "",
@@ -47,7 +49,7 @@ function LoginModal() {
             <CloseIcon>
               <AiOutlineClose onClick={(e) => closeModal(e)} />
             </CloseIcon>
-            <h1 className="header__logo">📰 NEWSAPP</h1>
+            <Logo clickEvent={false}>📰 NEWSAPP</Logo>
             <LoginModalContent>
               <LoginInputContainer>
                 <AiOutlineUser />
@@ -84,7 +86,7 @@ function LoginModal() {
                   아이디 또는 비밀번호가 틀립니다
                 </div>
               )}
-              <button type="button" onClick={() => handleLoginBtnClick()}>
+              <button type="button" onClick={handleLoginBtnClick}>
                 로그인
               </button>
             </LoginModalContent>
@@ -109,6 +111,10 @@ const LoginModalWrapper = styled.div`
 `;
 
 const LoginModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.5rem;
   width: 17.5rem;
   padding: 1rem;
   background-color: var(--gray-1);
@@ -118,16 +124,10 @@ const LoginModalContainer = styled.div`
     font-size: 0.6rem;
     color: red;
   }
-
-  .header__logo {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-weight: bold;
-  }
 `;
 
 const CloseIcon = styled.div`
-  text-align: right;
+  margin-left: auto;
   > svg {
     cursor: pointer;
   }

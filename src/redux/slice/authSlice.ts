@@ -1,25 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { loginApi } from "../../api/login";
+import { validationApi } from "../../api/auth";
 
-interface LoginState {
+interface authState {
   isLogin: boolean;
   isLoginError: boolean;
   isModalOpen: boolean;
 }
 
-const initialState: LoginState = {
+const initialState: authState = {
   isLogin: !!localStorage.getItem("isLogin"),
   isLoginError: false,
   isModalOpen: false,
 };
 
-export const loginSlice = createSlice({
-  name: "login",
+export const authSlice = createSlice({
+  name: "auth",
   initialState,
   reducers: {
     login(state, action) {
-      if (loginApi(action.payload)) {
+      if (validationApi(action.payload)) {
         state.isLogin = true;
         state.isLoginError = false;
         state.isModalOpen = false;
@@ -43,8 +43,8 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { login, logout, toggleModal } = loginSlice.actions;
+export const { login, logout, toggleModal } = authSlice.actions;
 
-export const selectLogin = (state: RootState) => state.login;
+export const selectAuth = (state: RootState) => state.auth;
 
-export default loginSlice.reducer;
+export default authSlice.reducer;

@@ -15,6 +15,7 @@ import {
 } from "../redux/slice/toptrendSlice";
 
 import { categoryOptions } from "../libs/options";
+import { FixedHeader } from "../styles/Components";
 
 function Main() {
   const dispatch = useAppDispatch();
@@ -39,8 +40,8 @@ function Main() {
   }, [dispatch]);
 
   return (
-    <MainContainer>
-      <CategoryWrapper>
+    <>
+      <FixedHeader zIdx={3}>
         <CategoryContainer>
           {categoryOptions.map((category) => (
             <span
@@ -54,32 +55,32 @@ function Main() {
             </span>
           ))}
         </CategoryContainer>
-      </CategoryWrapper>
-      <ToptrendListContainer>
-        {list.map((el, idx) => (
-          <ArticleCard size={sizeConverter(idx)} key={idx} data={el}>
-            <BookmarkBtn data={el} />
-          </ArticleCard>
-        ))}
-      </ToptrendListContainer>
-      {list.length !== 0 && <InfiniteScroll type="toptrend" />}
-    </MainContainer>
+      </FixedHeader>
+      <MainContainer>
+        <ToptrendListContainer>
+          {list.map((el, idx) => (
+            <ArticleCard size={sizeConverter(idx)} key={idx} data={el}>
+              <BookmarkBtn data={el} />
+            </ArticleCard>
+          ))}
+        </ToptrendListContainer>
+        {list.length !== 0 && <InfiniteScroll type="toptrend" />}
+      </MainContainer>
+    </>
   );
 }
 
-const MainContainer = styled.main``;
-const CategoryWrapper = styled.div`
-  position: fixed;
-  width: 100%;
-  background-color: var(--gray-1);
+const MainContainer = styled.main`
+  width: 64rem;
+  margin: 0 auto;
 `;
+
 const CategoryContainer = styled.div`
+  width: 64rem;
+  margin: 0 auto;
   display: flex;
   justify-content: flex-start;
-
-  width: 64rem;
   padding: 0.5rem 1rem;
-  margin: 0 auto;
   font-size: 0.8rem;
   color: var(--gray-7);
 
@@ -105,7 +106,6 @@ const ToptrendListContainer = styled.div`
   grid-template-rows: repeat(6, minmax(8rem, auto));
   grid-auto-flow: dense;
   gap: 1rem;
-  width: 64rem;
   padding: 4rem 1rem;
   margin: 0 auto;
 

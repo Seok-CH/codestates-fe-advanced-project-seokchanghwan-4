@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { getBookmark, selectBookmark } from "../redux/slice/bookmarkSlice";
-import { selectLogin } from "../redux/slice/loginSlice";
+import { selectAuth } from "../redux/slice/authSlice";
 
 import BookmarkDetail from "../components/BookmarkDetail";
 
@@ -14,7 +14,7 @@ function Bookmark() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { list } = useAppSelector(selectBookmark);
-  const { isLogin } = useAppSelector(selectLogin);
+  const { isLogin } = useAppSelector(selectAuth);
 
   if (!isLogin) navigate("/");
 
@@ -22,10 +22,9 @@ function Bookmark() {
     dispatch(getBookmark());
   }, [dispatch]);
 
-  console.log(list);
   return (
     <BookmarkContainer>
-      <h2 className="bookmark-headline">즐겨찾기 목록</h2>
+      <BookmarkHeadline>즐겨찾기 목록</BookmarkHeadline>
       <FlatList>
         {list.map((el, idx) => (
           <BookmarkDetail key={idx} bookmarkIdx={idx} data={el} />
@@ -39,12 +38,12 @@ const BookmarkContainer = styled.div`
   width: 35rem;
   margin: 0 auto;
   padding: 1rem 0;
+`;
 
-  .bookmark-headline {
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 1rem 0;
-  }
+const BookmarkHeadline = styled.h2`
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem 0;
 `;
 
 export default Bookmark;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { postBookmark } from "../redux/slice/bookmarkSlice";
-import { selectLogin, toggleModal } from "../redux/slice/loginSlice";
+import { selectAuth, toggleModal } from "../redux/slice/authSlice";
 import { BsBookmarkPlus } from "react-icons/bs";
 import { SearchResultList } from "../types/search";
 
@@ -11,7 +11,7 @@ interface PropsType {
 
 function BookmarkBtn({ data }: PropsType) {
   const dispatch = useAppDispatch();
-  const { isLogin } = useAppSelector(selectLogin);
+  const { isLogin } = useAppSelector(selectAuth);
 
   const addBookmark = (data: SearchResultList) => {
     isLogin ? dispatch(postBookmark(data)) : dispatch(toggleModal(true));

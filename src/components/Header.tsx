@@ -4,10 +4,12 @@ import styled from "styled-components";
 import SearchBar from "../components/SearchBar";
 
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { logout, toggleModal, selectLogin } from "../redux/slice/loginSlice";
+import { logout, toggleModal, selectAuth } from "../redux/slice/authSlice";
+
+import { FixedHeader, Logo } from "../styles/Components";
 
 function Header() {
-  const { isLogin } = useAppSelector(selectLogin);
+  const { isLogin } = useAppSelector(selectAuth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -24,11 +26,11 @@ function Header() {
   };
 
   return (
-    <HeaderWrapper>
+    <FixedHeader zIdx={2}>
       <HeaderContainer className="header">
-        <h1 className="header__logo" onClick={goBackHome}>
+        <Logo clickEvent={true} onClick={goBackHome}>
           📰 NEWSAPP
-        </h1>
+        </Logo>
         <SearchBar />
         <NavContainer className="nav">
           {isLogin ? (
@@ -47,32 +49,18 @@ function Header() {
           )}
         </NavContainer>
       </HeaderContainer>
-    </HeaderWrapper>
+    </FixedHeader>
   );
 }
-
-const HeaderWrapper = styled.div`
-  width: 100%;
-  position: fixed;
-  z-index: 2;
-  background-color: var(--gray-1);
-`;
 
 const HeaderContainer = styled.header`
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  justify-content: space-between;
   align-items: center;
   width: 64rem;
   height: 3rem;
   margin: 0 auto;
-  padding: 0.5rem 2rem;
-
-  .header__logo {
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-  }
+  /* padding: 0.5rem 2rem; */
 `;
 
 const NavContainer = styled.nav`
