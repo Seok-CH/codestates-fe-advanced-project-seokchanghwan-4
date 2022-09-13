@@ -1,5 +1,33 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import styled from "styled-components";
+
+import Header from "./components/Header";
+import LoginModal from "./components/LoginModal";
+import Main from "./pages/Main";
+import Search from "./pages/Search";
+import Bookmark from "./pages/Bookmark";
+
 function App() {
-  return <div className="App"></div>;
+  return (
+    <BrowserRouter>
+      <LoginModal />
+      <Header />
+      <Wrapper>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/bookmark" element={<Bookmark />} />
+        </Routes>
+      </Wrapper>
+    </BrowserRouter>
+  );
 }
+
+const Wrapper = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 3rem;
+  background-color: var(--gray-2);
+`;
 
 export default App;

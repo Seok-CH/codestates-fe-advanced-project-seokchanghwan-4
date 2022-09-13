@@ -38,6 +38,14 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  textarea {
+    border: none;
+    background: none;
+    resize: none;
+
+    
+  }
+
   button {
     border: 0;
     padding:0;

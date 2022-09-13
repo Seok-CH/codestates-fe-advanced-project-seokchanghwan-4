@@ -1,9 +1,15 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import searchReducer from "./slice/searchSlice";
+import loginReducer from "./slice/loginSlice";
+import bookmarkReducer from "./slice/bookmarkSlice";
+import toptrendReducer from "./slice/toptrendSlice";
 
 export const store = configureStore({
   reducer: {
     search: searchReducer,
+    login: loginReducer,
+    bookmark: bookmarkReducer,
+    toptrend: toptrendReducer,
   },
 });
 
