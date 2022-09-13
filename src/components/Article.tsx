@@ -21,7 +21,7 @@ function Article({ data, children }: PropsType) {
       <a href={data.url} target="_blank" rel="noreferrer">
         <div className="article__info">
           <h2 className="article__title">{data.title}</h2>
-          <p className="article__description">{data.description}</p>
+          <p className="article__content">{data.content}</p>
           <div className="article__subinfo">
             <span className="article__datetime">
               {data.publishedAt.split("T")[0]}
@@ -31,7 +31,7 @@ function Article({ data, children }: PropsType) {
           </div>
         </div>
       </a>
-      <div className="interaction-container">{children}</div>
+      {children}
     </ArticleContainer>
   );
 }
@@ -40,16 +40,6 @@ const ArticleContainer = styled.article`
   display: flex;
   padding: 1rem;
   border-bottom: 1px solid var(--gray-3);
-
-  .interaction-container {
-    width: 1rem;
-    font-size: 1rem;
-    color: var(--gray-8);
-
-    > svg {
-      cursor: pointer;
-    }
-  }
 
   .article__thumbnailContianer {
     display: flex;
@@ -84,7 +74,7 @@ const ArticleContainer = styled.article`
     -webkit-box-orient: vertical;
   }
 
-  .article__description {
+  .article__content {
     font-size: 0.7rem;
     line-height: 1.2;
     color: gray;

@@ -11,13 +11,10 @@ export const postBookmarkApi = (data: SearchResultList) => {
   localStorage.setItem("bookmark", stringified);
 };
 
-export const editBookmarkApi = (
-  data: SearchResultList,
-  bookmarkIdx: number
-) => {
+export const editBookmarkApi = (data: string, bookmarkIdx: number) => {
   const list = getBookmarkApi();
   const listCopy = [...list];
-  listCopy[bookmarkIdx] = data;
+  listCopy[bookmarkIdx].content = data;
   const stringified = JSON.stringify(listCopy);
   localStorage.setItem("bookmark", stringified);
 };

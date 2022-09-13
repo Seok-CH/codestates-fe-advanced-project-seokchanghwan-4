@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { searchArticlesApi } from "../../api/search";
-import { QueryList, SearchResultList } from "../../types/search";
+import { SearchQueryList, SearchResultList } from "../../types/search";
 
 export interface SearchState {
   list: SearchResultList[];
-  query: QueryList;
+  query: SearchQueryList;
   status: "idle" | "loading" | "failed";
 }
 
@@ -17,7 +17,7 @@ const initialState: SearchState = {
 
 export const searchArticles = createAsyncThunk(
   "search/fetchArticles",
-  async (query: QueryList) => {
+  async (query: SearchQueryList) => {
     const response = await searchArticlesApi(query);
     return response.data;
   }
@@ -27,7 +27,7 @@ export const searchSlice = createSlice({
   name: "search",
   initialState,
   reducers: {
-    increasePage(state) {
+    increaseSearchPage(state) {
       state.query.page += 1;
     },
     changeSortBy(state, action) {
@@ -38,6 +38,10 @@ export const searchSlice = createSlice({
     changeSearchword(state, action) {
       state.list = [];
       state.query = { ...initialState.query, q: action.payload };
+    },
+    resetList(state) {
+      state.list = [];
+      state.query.page = 1;
     },
   },
   extraReducers: (builder) => {
@@ -55,7 +59,7 @@ export const searchSlice = createSlice({
   },
 });
 
-export const { increasePage, changeSearchword, changeSortBy } =
+export const { increaseSearchPage, changeSearchword, changeSortBy, resetList } =
   searchSlice.actions;
 
 export const selectSearch = (state: RootState) => state.search;

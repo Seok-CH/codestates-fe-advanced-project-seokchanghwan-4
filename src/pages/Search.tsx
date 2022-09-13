@@ -1,31 +1,26 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import styled from "styled-components";
-import { BsBookmarkPlus } from "react-icons/bs";
 
 import Article from "../components/Article";
-import SearchBar from "../components/SearchBar";
 import Loading from "../components/Loading";
+import InfiniteScroll from "../components/InfiniteScroll";
+import BookmarkBtn from "../components/BookmarkBtn";
 
-import { selectLogin, toggleModal } from "../redux/slice/loginSlice";
 import {
   searchArticles,
   selectSearch,
-  increasePage,
   changeSearchword,
   changeSortBy,
+  resetList,
 } from "../redux/slice/searchSlice";
-import { postBookmark } from "../redux/slice/bookmarkSlice";
-
-import { SearchResultList } from "../types/search";
 
 function Searchlist() {
-  const { isLogin } = useAppSelector(selectLogin);
   const { list, status, query } = useAppSelector(selectSearch);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const fetchSection = useRef() as React.MutableRefObject<HTMLDivElement>;
+
   const q = useLocation().search?.slice(1).split("=")[1];
   if (!q) navigate("/");
   const filterOption = [
@@ -33,27 +28,6 @@ function Searchlist() {
     { id: "popularity", name: "인기순" },
     { id: "publishedAt", name: "최신순" },
   ];
-
-  const addBookmark = (data: SearchResultList) => {
-    isLogin ? dispatch(postBookmark(data)) : dispatch(toggleModal(true));
-  };
-
-  useEffect(() => {
-    const options = {
-      rootMargin: "500px",
-      threshold: 0.25,
-    };
-
-    const handlefetch = (entries: IntersectionObserverEntry[]) => {
-      if (entries[0].isIntersecting) {
-        dispatch(increasePage());
-      }
-    };
-
-    const observer = new IntersectionObserver(handlefetch, options);
-    observer.observe(fetchSection.current);
-    return () => observer.disconnect();
-  }, [dispatch]);
 
   useEffect(() => {
     if (!query.q) {
@@ -63,9 +37,14 @@ function Searchlist() {
     }
   }, [query, q, dispatch]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(resetList());
+    };
+  }, [dispatch]);
+
   return (
     <SearchContainer>
-      <SearchBar />
       <SearchFilter>
         {filterOption.map((filter) => (
           <button
@@ -83,11 +62,11 @@ function Searchlist() {
         {status === "loading" && <Loading />}
         {list.map((el, idx) => (
           <Article key={idx} data={el}>
-            <BsBookmarkPlus onClick={() => addBookmark(el)} />
+            <BookmarkBtn data={el} />
           </Article>
         ))}
       </SearchList>
-      <div style={{ height: "100px" }} ref={fetchSection}></div>
+      <InfiniteScroll type="search" />
     </SearchContainer>
   );
 }
@@ -134,7 +113,6 @@ const SearchFilter = styled.div`
 
 const SearchList = styled.div`
   position: relative;
-  min-height: 100vh;
   background-color: var(--gray-1);
   border: 1px solid var(--gray-5);
   border-radius: 10px;

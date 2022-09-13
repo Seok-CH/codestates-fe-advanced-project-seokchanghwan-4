@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import SearchBar from "../components/SearchBar";
+
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { toggleModal, selectLogin } from "../redux/slice/loginSlice";
+import { logout, toggleModal, selectLogin } from "../redux/slice/loginSlice";
 
 function Header() {
   const { isLogin } = useAppSelector(selectLogin);
@@ -17,34 +19,53 @@ function Header() {
     navigate("/");
   };
 
-  const goMyPage = () => {
-    navigate("/");
+  const goBookmark = () => {
+    navigate("/bookmark");
   };
 
   return (
-    <HeaderContainer className="header">
-      <h1 className="header__logo" onClick={goBackHome}>
-        📰 NEWSAPP
-      </h1>
-      <NavContainer className="nav">
-        {isLogin ? (
-          <button className="nav__btn" onClick={goMyPage}>
-            마이페이지
-          </button>
-        ) : (
-          <button className="nav__btn" onClick={openModal}>
-            로그인
-          </button>
-        )}
-      </NavContainer>
-    </HeaderContainer>
+    <HeaderWrapper>
+      <HeaderContainer className="header">
+        <h1 className="header__logo" onClick={goBackHome}>
+          📰 NEWSAPP
+        </h1>
+        <SearchBar />
+        <NavContainer className="nav">
+          {isLogin ? (
+            <>
+              <button className="nav__btn" onClick={goBookmark}>
+                북마크 목록
+              </button>
+              <button className="nav__btn" onClick={() => dispatch(logout())}>
+                로그아웃
+              </button>
+            </>
+          ) : (
+            <button className="nav__btn" onClick={openModal}>
+              로그인
+            </button>
+          )}
+        </NavContainer>
+      </HeaderContainer>
+    </HeaderWrapper>
   );
 }
 
+const HeaderWrapper = styled.div`
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+  background-color: var(--gray-1);
+`;
+
 const HeaderContainer = styled.header`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
   justify-content: space-between;
   align-items: center;
+  width: 64rem;
+  height: 3rem;
+  margin: 0 auto;
   padding: 0.5rem 2rem;
 
   .header__logo {
@@ -55,14 +76,13 @@ const HeaderContainer = styled.header`
 `;
 
 const NavContainer = styled.nav`
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  text-align: right;
 
   .nav__btn {
     padding: 0.5rem;
     border-radius: 0.5rem;
     color: var(--primary-blue-7);
+    font-size: 0.75rem;
 
     &:hover {
       background-color: var(--primary-blue-1);

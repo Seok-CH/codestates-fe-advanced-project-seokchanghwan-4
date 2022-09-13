@@ -55,6 +55,11 @@ function LoginModal() {
                   name="id"
                   type="text"
                   onChange={(e) => changeInputValue(e)}
+                  onKeyUp={(e) => {
+                    if (e.code === "Enter") {
+                      handleLoginBtnClick();
+                    }
+                  }}
                   value={inputValue.id}
                   placeholder="아이디"
                 />
@@ -65,6 +70,11 @@ function LoginModal() {
                   name="password"
                   type="password"
                   onChange={(e) => changeInputValue(e)}
+                  onKeyUp={(e) => {
+                    if (e.code === "Enter") {
+                      handleLoginBtnClick();
+                    }
+                  }}
                   value={inputValue.password}
                   placeholder="비밀번호"
                 />
@@ -74,7 +84,9 @@ function LoginModal() {
                   아이디 또는 비밀번호가 틀립니다
                 </div>
               )}
-              <button onClick={() => handleLoginBtnClick()}>로그인</button>
+              <button type="button" onClick={() => handleLoginBtnClick()}>
+                로그인
+              </button>
             </LoginModalContent>
           </LoginModalContainer>
         </LoginModalWrapper>
@@ -97,7 +109,7 @@ const LoginModalWrapper = styled.div`
 `;
 
 const LoginModalContainer = styled.div`
-  width: 15rem;
+  width: 17.5rem;
   padding: 1rem;
   background-color: var(--gray-1);
   border-radius: 10px;
@@ -110,6 +122,7 @@ const LoginModalContainer = styled.div`
   .header__logo {
     text-align: center;
     margin-bottom: 1rem;
+    font-weight: bold;
   }
 `;
 
@@ -123,7 +136,7 @@ const CloseIcon = styled.div`
 const LoginModalContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 
   > button {
     height: 2.5rem;

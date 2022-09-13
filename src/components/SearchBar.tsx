@@ -36,11 +36,14 @@ function Header() {
   );
 }
 
-const SearchbarContainer = styled.nav`
+const SearchbarContainer = styled.div`
+  display: flex;
+  position: relative;
+
   > svg {
-    position: relative;
+    position: absolute;
     left: 1rem;
-    top: 1.7rem;
+    top: 0.5rem;
     cursor: pointer;
   }
 

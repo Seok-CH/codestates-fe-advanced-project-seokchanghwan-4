@@ -9,7 +9,7 @@ interface LoginState {
 }
 
 const initialState: LoginState = {
-  isLogin: false,
+  isLogin: !!localStorage.getItem("isLogin"),
   isLoginError: false,
   isModalOpen: false,
 };
@@ -23,10 +23,15 @@ export const loginSlice = createSlice({
         state.isLogin = true;
         state.isLoginError = false;
         state.isModalOpen = false;
+        localStorage.setItem("isLogin", "true");
       } else {
         state.isLogin = false;
         state.isLoginError = true;
       }
+    },
+    logout(state) {
+      state.isLogin = false;
+      localStorage.removeItem("isLogin");
     },
     toggleModal(state, action) {
       if (action.payload) state.isModalOpen = true;
@@ -38,7 +43,7 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { login, toggleModal } = loginSlice.actions;
+export const { login, logout, toggleModal } = loginSlice.actions;
 
 export const selectLogin = (state: RootState) => state.login;
 

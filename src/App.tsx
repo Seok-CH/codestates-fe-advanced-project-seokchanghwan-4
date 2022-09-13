@@ -25,6 +25,8 @@ function App() {
 
 const Wrapper = styled.div`
   width: 100%;
+  min-height: 100vh;
+  padding-top: 3rem;
   background-color: var(--gray-2);
 `;
 
