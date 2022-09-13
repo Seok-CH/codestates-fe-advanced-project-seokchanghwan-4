@@ -8,6 +8,8 @@ import { selectLogin } from "../redux/slice/loginSlice";
 
 import BookmarkDetail from "../components/BookmarkDetail";
 
+import { FlatList } from "../styles/Components";
+
 function Bookmark() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -24,11 +26,11 @@ function Bookmark() {
   return (
     <BookmarkContainer>
       <h2 className="bookmark-headline">즐겨찾기 목록</h2>
-      <BookmarkList>
+      <FlatList>
         {list.map((el, idx) => (
           <BookmarkDetail key={idx} bookmarkIdx={idx} data={el} />
         ))}
-      </BookmarkList>
+      </FlatList>
     </BookmarkContainer>
   );
 }
@@ -43,14 +45,6 @@ const BookmarkContainer = styled.div`
     font-weight: bold;
     padding: 1rem 0;
   }
-`;
-
-const BookmarkList = styled.div`
-  position: relative;
-  background-color: var(--gray-1);
-  border: 1px solid var(--gray-5);
-  border-radius: 10px;
-  overflow: hidden;
 `;
 
 export default Bookmark;

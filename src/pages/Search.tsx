@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import styled from "styled-components";
 
 import Article from "../components/Article";
-import Loading from "../components/Loading";
 import InfiniteScroll from "../components/InfiniteScroll";
 import BookmarkBtn from "../components/BookmarkBtn";
 
@@ -16,37 +15,33 @@ import {
   resetList,
 } from "../redux/slice/searchSlice";
 
+import { filterOptions } from "../libs/options";
+
+import { FlatList } from "../styles/Components";
+
 function Searchlist() {
-  const { list, status, query } = useAppSelector(selectSearch);
+  const { list, query } = useAppSelector(selectSearch);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const q = useLocation().search?.slice(1).split("=")[1];
   if (!q) navigate("/");
-  const filterOption = [
-    { id: "relevancy", name: "관련도순" },
-    { id: "popularity", name: "인기순" },
-    { id: "publishedAt", name: "최신순" },
-  ];
 
   useEffect(() => {
-    if (!query.q) {
-      dispatch(changeSearchword(q));
-    } else {
-      dispatch(searchArticles(query));
-    }
-  }, [query, q, dispatch]);
-
-  useEffect(() => {
+    dispatch(changeSearchword(q));
     return () => {
       dispatch(resetList());
     };
-  }, [dispatch]);
+  }, [dispatch, q]);
+
+  useEffect(() => {
+    if (query.q) dispatch(searchArticles(query));
+  }, [query, dispatch]);
 
   return (
     <SearchContainer>
       <SearchFilter>
-        {filterOption.map((filter) => (
+        {filterOptions.map((filter) => (
           <button
             key={filter.id}
             className={`filter-btn${
@@ -58,14 +53,13 @@ function Searchlist() {
           </button>
         ))}
       </SearchFilter>
-      <SearchList>
-        {status === "loading" && <Loading />}
+      <FlatList>
         {list.map((el, idx) => (
           <Article key={idx} data={el}>
             <BookmarkBtn data={el} />
           </Article>
         ))}
-      </SearchList>
+      </FlatList>
       {list.length !== 0 && <InfiniteScroll type="search" />}
     </SearchContainer>
   );
@@ -109,14 +103,6 @@ const SearchFilter = styled.div`
       background-color: #03c75a;
     }
   }
-`;
-
-const SearchList = styled.div`
-  position: relative;
-  background-color: var(--gray-1);
-  border: 1px solid var(--gray-5);
-  border-radius: 10px;
-  overflow: hidden;
 `;
 
 export default Searchlist;

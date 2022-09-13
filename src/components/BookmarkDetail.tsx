@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 
 import Article from "./Article";
 
@@ -7,8 +8,6 @@ import { useAppDispatch } from "../redux/hooks";
 import { editBookmark } from "../redux/slice/bookmarkSlice";
 
 import { SearchResultList } from "../types/search";
-
-import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 
 interface PropsType {
   data: SearchResultList;

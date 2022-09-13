@@ -54,7 +54,7 @@ function LoginModal() {
                 <input
                   name="id"
                   type="text"
-                  onChange={(e) => changeInputValue(e)}
+                  onChange={changeInputValue}
                   onKeyUp={(e) => {
                     if (e.code === "Enter") {
                       handleLoginBtnClick();
@@ -69,7 +69,7 @@ function LoginModal() {
                 <input
                   name="password"
                   type="password"
-                  onChange={(e) => changeInputValue(e)}
+                  onChange={changeInputValue}
                   onKeyUp={(e) => {
                     if (e.code === "Enter") {
                       handleLoginBtnClick();

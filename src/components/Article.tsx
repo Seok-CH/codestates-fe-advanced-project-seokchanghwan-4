@@ -57,42 +57,38 @@ const ArticleContainer = styled.article`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 21rem;
+    width: 20rem;
     height: 6rem;
     margin-right: 1rem;
   }
 
-  .article__title {
+  .article__title,
+  .article__content,
+  .article__subinfo {
     display: -webkit-box;
-    font-size: 0.9rem;
-    font-weight: bold;
-    line-height: 1.5;
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
-    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+  }
+
+  .article__title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    line-height: 1.5;
+    -webkit-line-clamp: 2;
   }
 
   .article__content {
     font-size: 0.7rem;
     line-height: 1.2;
     color: gray;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
     -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
   }
 
   .article__subinfo {
-    display: -webkit-box;
     font-size: 0.6rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
     -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
   }
 
   .article__datetime::after {

@@ -18,18 +18,23 @@ function BookmarkBtn({ data }: PropsType) {
   };
   return (
     <Container>
-      <BsBookmarkPlus onClick={() => addBookmark(data)} />
+      <BsBookmarkPlus
+        onClick={() => {
+          addBookmark(data);
+        }}
+      />
     </Container>
   );
 }
 
 const Container = styled.div`
-  width: 1rem;
   font-size: 1rem;
-  color: var(--gray-8);
 
   > svg {
     cursor: pointer;
+    &:hover {
+      fill: var(--primary-blue-6);
+    }
   }
 `;
 

@@ -14,18 +14,11 @@ import {
   resetList,
 } from "../redux/slice/toptrendSlice";
 
+import { categoryOptions } from "../libs/options";
+
 function Main() {
   const dispatch = useAppDispatch();
   const { query, list } = useAppSelector(selectToptrend);
-  const category = [
-    { id: "general", name: "일반" },
-    { id: "business", name: "비즈니스" },
-    { id: "health", name: "건강" },
-    { id: "science", name: "과학" },
-    { id: "technology", name: "기술" },
-    { id: "entertainment", name: "연예" },
-    { id: "sports", name: "스포츠" },
-  ];
 
   const sizeConverter = (idx: number) => {
     return (idx + 1) % 12 === 1
@@ -49,15 +42,15 @@ function Main() {
     <MainContainer>
       <CategoryWrapper>
         <CategoryContainer>
-          {category.map((el) => (
+          {categoryOptions.map((category) => (
             <span
               className={`category-item${
-                el.id === query.category ? " category-selected" : ""
+                category.id === query.category ? " category-selected" : ""
               }`}
-              key={el.id}
-              onClick={() => dispatch(changeCategory(el.id))}
+              key={category.id}
+              onClick={() => dispatch(changeCategory(category.id))}
             >
-              {el.name}
+              {category.name}
             </span>
           ))}
         </CategoryContainer>
