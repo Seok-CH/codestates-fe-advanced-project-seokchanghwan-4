@@ -60,7 +60,7 @@ const HeaderContainer = styled.header`
   width: 64rem;
   height: 3rem;
   margin: 0 auto;
-  /* padding: 0.5rem 2rem; */
+  padding: 0.5rem 2rem;
 `;
 
 const NavContainer = styled.nav`
