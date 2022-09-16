@@ -66,7 +66,7 @@ function Searchlist() {
 }
 
 const SearchContainer = styled.section`
-  width: 35rem;
+  width: 48rem;
   margin: 0 auto;
   padding: 1rem 0;
 `;
@@ -74,7 +74,7 @@ const SearchContainer = styled.section`
 const SearchFilter = styled.div`
   display: flex;
   gap: 1rem;
-  height: 2.5rem;
+  height: 3rem;
   margin: 1rem 0;
   padding: 0.5rem 1rem;
   border-radius: 10px;
@@ -82,7 +82,7 @@ const SearchFilter = styled.div`
   background-color: var(--gray-1);
 
   .filter-btn {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     color: var(--gray-7);
 
     ::before {

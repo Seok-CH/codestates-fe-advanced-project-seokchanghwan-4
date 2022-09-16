@@ -3,7 +3,7 @@
 # 기업과제(앨리스헬스케어) - 뉴스 웹앱
 
 - **배포링크** : [링크클릭](https://codestates-fe-advanced-project-seokchanghwan-4.vercel.app/)
-- **사용스택** : `javascript`, `react`, `typescript` ,`styled-components`,`react-icons`
+- **사용스택** : `javascript`, `react`, `typescript` ,`styled-components`,`react-icons`,`axios`
 - **프로젝트 시작 방법** :
 
   1.  [Code버튼 클릭 > DownloadZip 클릭] 후 압축 파일 다운 받기

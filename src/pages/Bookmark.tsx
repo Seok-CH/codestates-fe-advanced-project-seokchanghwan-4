@@ -26,6 +26,7 @@ function Bookmark() {
     <BookmarkContainer>
       <BookmarkHeadline>즐겨찾기 목록</BookmarkHeadline>
       <FlatList>
+        {list.length === 0 && <NoBookmark>즐겨찾기가 없습니다</NoBookmark>}
         {list.map((el, idx) => (
           <BookmarkDetail key={idx} bookmarkIdx={idx} data={el} />
         ))}
@@ -35,15 +36,22 @@ function Bookmark() {
 }
 
 const BookmarkContainer = styled.div`
-  width: 35rem;
+  width: 48rem;
   margin: 0 auto;
-  padding: 1rem 0;
+  padding-top: 2rem;
 `;
 
 const BookmarkHeadline = styled.h2`
   font-size: 1rem;
   font-weight: bold;
   padding: 1rem 0;
+`;
+
+const NoBookmark = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10rem;
 `;
 
 export default Bookmark;

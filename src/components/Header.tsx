@@ -58,7 +58,7 @@ const HeaderContainer = styled.header`
   grid-template-columns: 1fr 2fr 1fr;
   align-items: center;
   width: 64rem;
-  height: 3rem;
+  height: 4rem;
   margin: 0 auto;
   padding: 0.5rem 2rem;
 `;
@@ -70,7 +70,7 @@ const NavContainer = styled.nav`
     padding: 0.5rem;
     border-radius: 0.5rem;
     color: var(--primary-blue-7);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
 
     &:hover {
       background-color: var(--primary-blue-1);

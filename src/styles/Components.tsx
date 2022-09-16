@@ -39,7 +39,7 @@ export const FixedHeader = styled.div<FixedHeaderPropsType>`
 `;
 
 export const Logo = styled.h1<LogoPropsType>`
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: bold;
 
   cursor: ${(props) => (props.clickEvent ? "pointer" : "default")};

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { validationApi } from "../../api/auth";
+import { validationApi, setAuthData } from "../../api/auth";
 
 interface authState {
   isLogin: boolean;
@@ -19,6 +19,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     login(state, action) {
+      setAuthData();
       if (validationApi(action.payload)) {
         state.isLogin = true;
         state.isLoginError = false;

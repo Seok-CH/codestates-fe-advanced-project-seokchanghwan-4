@@ -49,7 +49,7 @@ function LoginModal() {
             <CloseIcon>
               <AiOutlineClose onClick={(e) => closeModal(e)} />
             </CloseIcon>
-            <Logo clickEvent={false}>📰 NEWSAPP</Logo>
+            <LogoCenter clickEvent={false}>📰 NEWSAPP</LogoCenter>
             <LoginModalContent>
               <LoginInputContainer>
                 <AiOutlineUser />
@@ -114,8 +114,8 @@ const LoginModalContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  gap: 0.5rem;
-  width: 17.5rem;
+  gap: 1rem;
+  width: 20rem;
   padding: 1rem;
   background-color: var(--gray-1);
   border-radius: 10px;
@@ -131,6 +131,10 @@ const CloseIcon = styled.div`
   > svg {
     cursor: pointer;
   }
+`;
+
+const LogoCenter = styled(Logo)`
+  text-align: center;
 `;
 
 const LoginModalContent = styled.div`
@@ -155,7 +159,7 @@ const LoginInputContainer = styled.div`
   > svg {
     position: absolute;
     top: 0.5rem;
-    color: var(--gray-8);
+    color: var(--gray-7);
     font-size: 0.9rem;
   }
 
@@ -164,10 +168,14 @@ const LoginInputContainer = styled.div`
     height: 2rem;
     border-bottom: 1px solid var(--gray-5);
     padding: 0.1rem 0.5rem 0.1rem 1.5rem;
-    font-size: 0.7rem;
-
-    &:focus {
+    font-size: 0.8rem;
+  }
+  &:focus-within {
+    > input {
       border-bottom: 1px solid var(--primary-blue-6);
+    }
+    > svg {
+      color: var(--gray-9);
     }
   }
 `;

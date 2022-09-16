@@ -86,7 +86,7 @@ const Container = styled.div`
   }
   .article__subinfo {
     display: -webkit-box;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
@@ -116,7 +116,7 @@ const Container = styled.div`
 
   .btn-change {
     margin-left: 1rem;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     padding: 0.5rem;
     border-radius: 5px;
 
