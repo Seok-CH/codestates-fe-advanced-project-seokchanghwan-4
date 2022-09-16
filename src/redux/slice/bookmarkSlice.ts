@@ -24,16 +24,20 @@ export const bookmarkSlice = createSlice({
       state.list = getBookmarkApi();
     },
     postBookmark(state, action) {
-      postBookmarkApi(action.payload);
-      state.list = getBookmarkApi();
+      if (window.confirm("북마크 하시겠습니까?")) {
+        postBookmarkApi(action.payload);
+        state.list = getBookmarkApi();
+      }
     },
     editBookmark(state, action) {
       editBookmarkApi(action.payload.data, action.payload.bookmarkIdx);
       state.list = getBookmarkApi();
     },
     delBookmark(state, action) {
-      delBookmarkApi(action.payload);
-      state.list = getBookmarkApi();
+      if (window.confirm("정말 삭제 하시겠습니까?")) {
+        delBookmarkApi(action.payload);
+        state.list = getBookmarkApi();
+      }
     },
   },
 });

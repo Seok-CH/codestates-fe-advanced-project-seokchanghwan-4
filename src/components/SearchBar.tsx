@@ -37,14 +37,12 @@ function Header() {
 }
 
 const SearchbarContainer = styled.div`
-  display: flex;
   position: relative;
 
   > svg {
     position: absolute;
     left: 1rem;
     top: 0.5rem;
-    cursor: pointer;
   }
 
   .nav__searchinput {

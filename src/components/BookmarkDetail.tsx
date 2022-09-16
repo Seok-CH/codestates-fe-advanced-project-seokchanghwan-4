@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 
 import Article from "./Article";
 
 import { useAppDispatch } from "../redux/hooks";
-import { editBookmark } from "../redux/slice/bookmarkSlice";
+import { editBookmark, delBookmark } from "../redux/slice/bookmarkSlice";
 
 import { SearchResultList } from "../types/search";
-
-import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 
 interface PropsType {
   data: SearchResultList;
@@ -62,7 +61,12 @@ function BookmarkDetail({ data, bookmarkIdx }: PropsType) {
             >
               {editmode ? "수정완료" : "내용 수정하기"}
             </button>
-            <button className="btn-change btn-remove">즐겨찾기 삭제</button>
+            <button
+              className="btn-change btn-remove"
+              onClick={() => dispatch(delBookmark(bookmarkIdx))}
+            >
+              즐겨찾기 삭제
+            </button>
           </div>
         </Container>
       )}
@@ -82,7 +86,7 @@ const Container = styled.div`
   }
   .article__subinfo {
     display: -webkit-box;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
@@ -112,7 +116,7 @@ const Container = styled.div`
 
   .btn-change {
     margin-left: 1rem;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     padding: 0.5rem;
     border-radius: 5px;
 

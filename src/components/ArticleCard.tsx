@@ -1,6 +1,8 @@
 import React from "react";
-import { SearchResultList } from "../types/search";
 import styled from "styled-components";
+
+import noimage from "../assets/images/noimage.png";
+import { SearchResultList } from "../types/search";
 
 interface PropsType {
   size?: "small" | "normal" | "large";
@@ -28,19 +30,17 @@ function ArticleCardDefault({ data, children }: PropsType) {
     <Wrapper className="card-item">
       <DefaultContainer>
         <a href={data.url} target="_blank" rel="noreferrer">
-          <div className="article__thumbnailContainer">
-            <img
-              className="article__thumbnail"
-              src={data.urlToImage}
-              alt="article_thumbnail"
-            />
-          </div>
+          <img
+            className="article__thumbnail"
+            src={data.urlToImage || noimage}
+            alt="article_thumbnail"
+          />
           <div className="article__info">
             <span className="article__source">{data.source.name}</span>
             <h2 className="article__title">{data.title}</h2>
           </div>
         </a>
-        <div className="bookmark-box">{children}</div>
+        <div className="article__bookmark">{children}</div>
       </DefaultContainer>
     </Wrapper>
   );
@@ -49,12 +49,14 @@ function ArticleCardDefault({ data, children }: PropsType) {
 function ArticleCardLarge({ data, children }: PropsType) {
   return (
     <Wrapper className="card-item">
-      <LargeContainer imageUrl={data.urlToImage}>
-        {children}
-        <div className="article__info">
-          <h2 className="article__title">{data.title}</h2>
-          <span className="article__source">{data.source.name}</span>
-        </div>
+      <LargeContainer imageUrl={data.urlToImage || noimage}>
+        <div className="article__bookmark">{children}</div>
+        <a href={data.url} target="_blank" rel="noreferrer">
+          <div className="article__info">
+            <h2 className="article__title">{data.title}</h2>
+            <span className="article__source">{data.source.name}</span>
+          </div>
+        </a>
       </LargeContainer>
     </Wrapper>
   );
@@ -64,20 +66,20 @@ function ArticleCardSmall({ data, children }: PropsType) {
   return (
     <Wrapper className="card-item">
       <SmallContainer>
-        <div className="article__content">
-          <div className="article__info">
-            <span className="article__source">{data.source.name}</span>
-            <h2 className="article__title">{data.title}</h2>
-          </div>
-          <div className="article__thumbnailContainer">
+        <a href={data.url} target="_blank" rel="noreferrer">
+          <div className="article__content">
+            <div className="article__info">
+              <span className="article__source">{data.source.name}</span>
+              <h2 className="article__title">{data.title}</h2>
+            </div>
             <img
               className="article__thumbnail"
-              src={data.urlToImage}
+              src={data.urlToImage || noimage}
               alt="article_thumbnail"
             />
           </div>
-        </div>
-        {children}
+        </a>
+        <div className="article__bookmark">{children}</div>
       </SmallContainer>
     </Wrapper>
   );
@@ -91,11 +93,10 @@ const Wrapper = styled.div`
 `;
 
 const DefaultContainer = styled.div`
-  .article__thumbnailContianer {
-    display: flex;
-    height: 8rem;
-    justify-content: center;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 
   .article__thumbnail {
     width: 100%;
@@ -104,7 +105,6 @@ const DefaultContainer = styled.div`
   }
 
   .article__info {
-    height: 8rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -127,7 +127,8 @@ const DefaultContainer = styled.div`
     font-size: 0.7rem;
   }
 
-  .bookmark-box {
+  .article__bookmark {
+    margin-top: 1rem;
     padding: 0.5rem;
   }
 `;
@@ -143,7 +144,7 @@ const LargeContainer = styled.div<LargeContainerPropsType>`
       rgba(255, 255, 255, 0),
       rgba(0, 0, 0, 0.6)
     ),
-    url(${(props) => props.imageUrl});
+    url(${(props) => props.imageUrl}) no-repeat center;
 
   .article__info {
     color: var(--gray-1);
@@ -158,6 +159,10 @@ const LargeContainer = styled.div<LargeContainerPropsType>`
     margin-bottom: 1rem;
     font-size: 0.7rem;
   }
+
+  .article__bookmark {
+    color: var(--gray-1);
+  }
 `;
 
 const SmallContainer = styled.div`
@@ -166,20 +171,20 @@ const SmallContainer = styled.div`
   justify-content: space-between;
   height: 100%;
   padding: 0.5rem;
+
   .article__content {
     display: flex;
-  }
-
-  .article__thumbnailContianer {
-    display: flex;
-    justify-content: center;
+    gap: 0.5rem;
   }
 
   .article__thumbnail {
-    margin-left: 0.5rem;
     height: 4rem;
-    width: 6rem;
+    width: 50%;
     object-fit: cover;
+  }
+
+  .article__info {
+    width: 50%;
   }
 
   .article__title {
@@ -197,6 +202,10 @@ const SmallContainer = styled.div`
 
   .article__source {
     font-size: 0.6rem;
+  }
+
+  .article__bookmark {
+    margin-top: 1rem;
   }
 `;
 export default ArticleCard;

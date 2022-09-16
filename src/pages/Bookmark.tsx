@@ -4,15 +4,17 @@ import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { getBookmark, selectBookmark } from "../redux/slice/bookmarkSlice";
-import { selectLogin } from "../redux/slice/loginSlice";
+import { selectAuth } from "../redux/slice/authSlice";
 
 import BookmarkDetail from "../components/BookmarkDetail";
+
+import { FlatList } from "../styles/Components";
 
 function Bookmark() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { list } = useAppSelector(selectBookmark);
-  const { isLogin } = useAppSelector(selectLogin);
+  const { isLogin } = useAppSelector(selectAuth);
 
   if (!isLogin) navigate("/");
 
@@ -20,37 +22,36 @@ function Bookmark() {
     dispatch(getBookmark());
   }, [dispatch]);
 
-  console.log(list);
   return (
     <BookmarkContainer>
-      <h2 className="bookmark-headline">즐겨찾기 목록</h2>
-      <BookmarkList>
+      <BookmarkHeadline>즐겨찾기 목록</BookmarkHeadline>
+      <FlatList>
+        {list.length === 0 && <NoBookmark>즐겨찾기가 없습니다</NoBookmark>}
         {list.map((el, idx) => (
-          <BookmarkDetail bookmarkIdx={idx} data={el} />
+          <BookmarkDetail key={idx} bookmarkIdx={idx} data={el} />
         ))}
-      </BookmarkList>
+      </FlatList>
     </BookmarkContainer>
   );
 }
 
 const BookmarkContainer = styled.div`
-  width: 35rem;
+  width: 48rem;
   margin: 0 auto;
-  padding: 1rem 0;
-
-  .bookmark-headline {
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 1rem 0;
-  }
+  padding-top: 2rem;
 `;
 
-const BookmarkList = styled.div`
-  position: relative;
-  background-color: var(--gray-1);
-  border: 1px solid var(--gray-5);
-  border-radius: 10px;
-  overflow: hidden;
+const BookmarkHeadline = styled.h2`
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem 0;
+`;
+
+const NoBookmark = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10rem;
 `;
 
 export default Bookmark;

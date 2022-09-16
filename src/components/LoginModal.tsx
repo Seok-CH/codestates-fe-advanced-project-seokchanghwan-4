@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { AiOutlineUser, AiOutlineLock, AiOutlineClose } from "react-icons/ai";
 
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { login, toggleModal, selectLogin } from "../redux/slice/loginSlice";
+import { login, toggleModal, selectAuth } from "../redux/slice/authSlice";
+
+import { Logo } from "../styles/Components";
 
 interface PropsType {
   children: React.ReactNode;
@@ -17,7 +19,7 @@ function ModalPortal({ children }: PropsType) {
 
 function LoginModal() {
   const dispatch = useAppDispatch();
-  const { isLoginError, isModalOpen } = useAppSelector(selectLogin);
+  const { isLoginError, isModalOpen } = useAppSelector(selectAuth);
   const [inputValue, setInputValue] = useState({
     id: "",
     password: "",
@@ -47,14 +49,14 @@ function LoginModal() {
             <CloseIcon>
               <AiOutlineClose onClick={(e) => closeModal(e)} />
             </CloseIcon>
-            <h1 className="header__logo">📰 NEWSAPP</h1>
+            <LogoCenter clickEvent={false}>📰 NEWSAPP</LogoCenter>
             <LoginModalContent>
               <LoginInputContainer>
                 <AiOutlineUser />
                 <input
                   name="id"
                   type="text"
-                  onChange={(e) => changeInputValue(e)}
+                  onChange={changeInputValue}
                   onKeyUp={(e) => {
                     if (e.code === "Enter") {
                       handleLoginBtnClick();
@@ -69,7 +71,7 @@ function LoginModal() {
                 <input
                   name="password"
                   type="password"
-                  onChange={(e) => changeInputValue(e)}
+                  onChange={changeInputValue}
                   onKeyUp={(e) => {
                     if (e.code === "Enter") {
                       handleLoginBtnClick();
@@ -84,7 +86,7 @@ function LoginModal() {
                   아이디 또는 비밀번호가 틀립니다
                 </div>
               )}
-              <button type="button" onClick={() => handleLoginBtnClick()}>
+              <button type="button" onClick={handleLoginBtnClick}>
                 로그인
               </button>
             </LoginModalContent>
@@ -109,7 +111,11 @@ const LoginModalWrapper = styled.div`
 `;
 
 const LoginModalContainer = styled.div`
-  width: 17.5rem;
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+  width: 20rem;
   padding: 1rem;
   background-color: var(--gray-1);
   border-radius: 10px;
@@ -118,19 +124,17 @@ const LoginModalContainer = styled.div`
     font-size: 0.6rem;
     color: red;
   }
-
-  .header__logo {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-weight: bold;
-  }
 `;
 
 const CloseIcon = styled.div`
-  text-align: right;
+  margin-left: auto;
   > svg {
     cursor: pointer;
   }
+`;
+
+const LogoCenter = styled(Logo)`
+  text-align: center;
 `;
 
 const LoginModalContent = styled.div`
@@ -155,7 +159,7 @@ const LoginInputContainer = styled.div`
   > svg {
     position: absolute;
     top: 0.5rem;
-    color: var(--gray-8);
+    color: var(--gray-7);
     font-size: 0.9rem;
   }
 
@@ -164,10 +168,14 @@ const LoginInputContainer = styled.div`
     height: 2rem;
     border-bottom: 1px solid var(--gray-5);
     padding: 0.1rem 0.5rem 0.1rem 1.5rem;
-    font-size: 0.7rem;
-
-    &:focus {
+    font-size: 0.8rem;
+  }
+  &:focus-within {
+    > input {
       border-bottom: 1px solid var(--primary-blue-6);
+    }
+    > svg {
+      color: var(--gray-9);
     }
   }
 `;

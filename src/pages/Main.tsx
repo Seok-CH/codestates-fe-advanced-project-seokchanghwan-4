@@ -14,18 +14,12 @@ import {
   resetList,
 } from "../redux/slice/toptrendSlice";
 
+import { categoryOptions } from "../libs/options";
+import { FixedHeader } from "../styles/Components";
+
 function Main() {
   const dispatch = useAppDispatch();
   const { query, list } = useAppSelector(selectToptrend);
-  const category = [
-    { id: "general", name: "일반" },
-    { id: "business", name: "비즈니스" },
-    { id: "health", name: "건강" },
-    { id: "science", name: "과학" },
-    { id: "technology", name: "기술" },
-    { id: "entertainment", name: "연예" },
-    { id: "sports", name: "스포츠" },
-  ];
 
   const sizeConverter = (idx: number) => {
     return (idx + 1) % 12 === 1
@@ -46,47 +40,47 @@ function Main() {
   }, [dispatch]);
 
   return (
-    <MainContainer>
-      <CategoryWrapper>
+    <>
+      <FixedHeader zIdx={3}>
         <CategoryContainer>
-          {category.map((el) => (
+          {categoryOptions.map((category) => (
             <span
               className={`category-item${
-                el.id === query.category ? " category-selected" : ""
+                category.id === query.category ? " category-selected" : ""
               }`}
-              key={el.id}
-              onClick={() => dispatch(changeCategory(el.id))}
+              key={category.id}
+              onClick={() => dispatch(changeCategory(category.id))}
             >
-              {el.name}
+              {category.name}
             </span>
           ))}
         </CategoryContainer>
-      </CategoryWrapper>
-      <ToptrendListContainer>
-        {list.map((el, idx) => (
-          <ArticleCard size={sizeConverter(idx)} key={idx} data={el}>
-            <BookmarkBtn data={el} />
-          </ArticleCard>
-        ))}
-      </ToptrendListContainer>
-      <InfiniteScroll type="toptrend" />
-    </MainContainer>
+      </FixedHeader>
+      <MainContainer>
+        <ToptrendListContainer>
+          {list.map((el, idx) => (
+            <ArticleCard size={sizeConverter(idx)} key={idx} data={el}>
+              <BookmarkBtn data={el} />
+            </ArticleCard>
+          ))}
+        </ToptrendListContainer>
+        {list.length !== 0 && <InfiniteScroll type="toptrend" />}
+      </MainContainer>
+    </>
   );
 }
 
-const MainContainer = styled.main``;
-const CategoryWrapper = styled.div`
-  position: fixed;
-  width: 100%;
-  background-color: var(--gray-1);
+const MainContainer = styled.main`
+  width: 64rem;
+  margin: 0 auto;
 `;
+
 const CategoryContainer = styled.div`
+  width: 64rem;
+  margin: 0 auto;
   display: flex;
   justify-content: flex-start;
-
-  width: 64rem;
   padding: 0.5rem 1rem;
-  margin: 0 auto;
   font-size: 0.8rem;
   color: var(--gray-7);
 
@@ -112,7 +106,6 @@ const ToptrendListContainer = styled.div`
   grid-template-rows: repeat(6, minmax(8rem, auto));
   grid-auto-flow: dense;
   gap: 1rem;
-  width: 64rem;
   padding: 4rem 1rem;
   margin: 0 auto;
 
