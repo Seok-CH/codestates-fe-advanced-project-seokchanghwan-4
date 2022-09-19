@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ArticleCard from "../components/ArticleCard";
 import BookmarkBtn from "../components/BookmarkBtn";
 import InfiniteScroll from "../components/InfiniteScroll";
+import Loading from "../components/Loading";
 
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
@@ -19,7 +20,7 @@ import { FixedHeader } from "../styles/Components";
 
 function Main() {
   const dispatch = useAppDispatch();
-  const { query, list } = useAppSelector(selectToptrend);
+  const { query, list, status } = useAppSelector(selectToptrend);
 
   const sizeConverter = (idx: number) => {
     return (idx + 1) % 12 === 1
@@ -34,10 +35,11 @@ function Main() {
   }, [query, dispatch]);
 
   useEffect(() => {
+    window.scrollTo({ top: 0 });
     return () => {
       dispatch(resetList());
     };
-  }, [dispatch]);
+  }, [dispatch, query.category]);
 
   return (
     <>
@@ -63,6 +65,7 @@ function Main() {
               <BookmarkBtn data={el} />
             </ArticleCard>
           ))}
+          {status === "loading" && <Loading />}
         </ToptrendListContainer>
         {list.length !== 0 && <InfiniteScroll type="toptrend" />}
       </MainContainer>

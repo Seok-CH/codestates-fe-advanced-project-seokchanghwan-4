@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 
@@ -15,6 +15,7 @@ interface PropsType {
 }
 
 function BookmarkDetail({ data, bookmarkIdx }: PropsType) {
+  const textareaRef = useRef() as React.MutableRefObject<HTMLTextAreaElement>;
   const [textareaValue, setTextareaValue] = useState(data.content);
   const [detailOn, setDetailOn] = useState(false);
   const [editmode, setEditmode] = useState(false);
@@ -22,6 +23,24 @@ function BookmarkDetail({ data, bookmarkIdx }: PropsType) {
 
   const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextareaValue(e.target.value);
+  };
+
+  const handleEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setEditmode(!editmode);
+
+    if (!editmode) {
+      textareaRef.current.disabled = false;
+      textareaRef.current.focus();
+    } else {
+      dispatch(editBookmark({ data: textareaValue, bookmarkIdx }));
+      textareaRef.current.disabled = true;
+      textareaRef.current.blur();
+    }
+  };
+
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(delBookmark(bookmarkIdx));
+    setDetailOn(false);
   };
 
   return (
@@ -47,24 +66,15 @@ function BookmarkDetail({ data, bookmarkIdx }: PropsType) {
           </div>
           <textarea
             className="article__content"
-            disabled={!editmode}
             value={textareaValue}
             onChange={handleContent}
+            ref={textareaRef}
           />
           <div className="article__change">
-            <button
-              className="btn-change btn-edit"
-              onClick={() => {
-                setEditmode(!editmode);
-                dispatch(editBookmark({ data: textareaValue, bookmarkIdx }));
-              }}
-            >
+            <button className="btn-change btn-edit" onClick={handleEdit}>
               {editmode ? "수정완료" : "내용 수정하기"}
             </button>
-            <button
-              className="btn-change btn-remove"
-              onClick={() => dispatch(delBookmark(bookmarkIdx))}
-            >
+            <button className="btn-change btn-remove" onClick={handleDelete}>
               즐겨찾기 삭제
             </button>
           </div>
@@ -108,6 +118,9 @@ const Container = styled.div`
 
   .article__content {
     height: 10rem;
+    &:focus {
+      outline: 1px solid var(--primary-blue-7);
+    }
   }
 
   .article__change {

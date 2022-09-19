@@ -2,12 +2,13 @@
 
 # 기업과제(앨리스헬스케어) - 뉴스 웹앱
 
-- **배포링크** : [링크클릭](https://codestates-fe-advanced-project-seokchanghwan-4.vercel.app/)
+- **배포링크** : [링크클릭](https://codestates-fe-advanced-project-seokchanghwan-4.vercel.app/) (CORS 때문에 화면이 보이지 않습니다. local에서만 화면이 보입니다)
 - **사용스택** : `javascript`, `react`, `typescript` ,`styled-components`,`react-icons`,`axios`
 - **프로젝트 시작 방법** :
 
   1.  [Code버튼 클릭 > DownloadZip 클릭] 후 압축 파일 다운 받기
-  2.  압축 파일을 푼 뒤 폴더 주소로 터미널에 `npm install && npm start` 입력
+  2.  압축을 플고 소스코드에서 주어진 .env.example의 key에 알맞은 value넣기 > 파일명 .env.local로 교체
+  3.  폴더 주소로 터미널에 `npm install && npm start` 입력
 
 <br/>
 
@@ -24,7 +25,7 @@
     <details>
     <summary><strong>GIF이미지</strong></summary>
     <div markdown='1'>
-    <img src='https://cdn.discordapp.com/attachments/1016940382061346880/1019423197885632602/Sep-14-2022_10-43-21.gif' alt='' />
+    <img src='https://cdn.discordapp.com/attachments/1016940382061346880/1021326422230437898/Sep-19-2022_16-45-50.gif' alt='' />
 
     > 첫 번째 이미지: 메인페이지 레이아웃 및 카테고리 탭과 무한스크롤 기능을 확인할 수 있습니다
 
@@ -32,7 +33,7 @@
 
     > 두 번째 이미지: 뉴스 클릭시 실제 웹페이지로 이동하는 것을 확인할 수 있습니다
 
-    <img src='https://cdn.discordapp.com/attachments/1016940382061346880/1019422119853043802/Sep-14-2022_10-38-10.gif' alt='' />
+    <img src='https://cdn.discordapp.com/attachments/1016940382061346880/1021327201477599252/Sep-19-2022_16-49-19.gif' alt='' />
 
     > 세 번째 이미지: 즐겨찾기 기능을 확인할 수 있습니다
 
@@ -51,7 +52,7 @@
     <details>
     <summary><strong>GIF이미지</strong></summary>
     <div markdown='1'>
-    <img src='https://cdn.discordapp.com/attachments/1016940382061346880/1019425568598540399/Sep-14-2022_10-51-45.gif' alt='' />
+    <img src='https://cdn.discordapp.com/attachments/1016940382061346880/1021327638184337408/Sep-19-2022_16-51-07.gif' alt='' />
 
     > 첫 번째 이미지: 검색어 입력 후 결과와 정렬 기능, 무한스크롤 기능을 확인할 수 있습니다
 
