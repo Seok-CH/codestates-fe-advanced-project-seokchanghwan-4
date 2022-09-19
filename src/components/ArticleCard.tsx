@@ -26,6 +26,10 @@ function ArticleCard({ size, data, children }: PropsType) {
 }
 
 function ArticleCardDefault({ data, children }: PropsType) {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = noimage;
+  };
+
   return (
     <Wrapper className="card-item">
       <DefaultContainer>
@@ -34,6 +38,7 @@ function ArticleCardDefault({ data, children }: PropsType) {
             className="article__thumbnail"
             src={data.urlToImage || noimage}
             alt="article_thumbnail"
+            onError={handleImageError}
           />
           <div className="article__info">
             <span className="article__source">{data.source.name}</span>
@@ -63,6 +68,10 @@ function ArticleCardLarge({ data, children }: PropsType) {
 }
 
 function ArticleCardSmall({ data, children }: PropsType) {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = noimage;
+  };
+
   return (
     <Wrapper className="card-item">
       <SmallContainer>
@@ -76,6 +85,7 @@ function ArticleCardSmall({ data, children }: PropsType) {
               className="article__thumbnail"
               src={data.urlToImage || noimage}
               alt="article_thumbnail"
+              onError={handleImageError}
             />
           </div>
         </a>

@@ -25,6 +25,11 @@ function Header() {
     navigate("/bookmark");
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <FixedHeader zIdx={2}>
       <HeaderContainer className="header">
@@ -38,7 +43,7 @@ function Header() {
               <button className="nav__btn" onClick={goBookmark}>
                 북마크 목록
               </button>
-              <button className="nav__btn" onClick={() => dispatch(logout())}>
+              <button className="nav__btn" onClick={handleLogout}>
                 로그아웃
               </button>
             </>
