@@ -1,7 +1,9 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 
 import { SearchResultList } from "../types/search";
+
+import noimage from "../assets/images/noimage.png";
 
 interface PropsType {
   data: SearchResultList;
@@ -9,13 +11,18 @@ interface PropsType {
 }
 
 function Article({ data, children }: PropsType) {
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = noimage;
+  };
+
   return (
     <ArticleContainer className="article">
       <div className="article__thumbnailContainer">
         <img
           className="article__thumbnail"
-          src={data.urlToImage}
+          src={data.urlToImage || noimage}
           alt="article_thumbnail"
+          onError={handleImageError}
         />
       </div>
       <a href={data.url} target="_blank" rel="noreferrer">
